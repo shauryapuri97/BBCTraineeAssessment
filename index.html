@@ -7,12 +7,63 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <link href="main.css" media="all" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 </head>
 <body>
+	<h1><center>Data Table Trainee Assessment</center></h1>
+	<div style="overflow-x:auto;">
+		<table id='table'>
+			<tr>
+				<th>Date</th>
+				<th>BBC One</th>
+			    <th>BBC Two</th>
+			    <th>BBC Three</th>
+			    <th>BBC Four</th>
+			    <th>BBC News24</th>
+			    <th>CBBC</th>
+			    <th>Cbeebies</th>
+			</tr>
+		</table>
+	</div>
 <script src="jquery-2.1.1.js"></script>
 <script>
-$.getJSON('data.json', function (data) {
+$.getJSON('https://gist.githubusercontent.com/shauryapuri97/a890eaf50f18ca166586766ad51b2f3a/raw/aabc4d346b67f43162ec31d10ccca6e9d73c9dec/data.json', function (data) {
     console.log(data);
+    var table_data = '';
+    var dateFormatted;
+    $.each(data, function(key, value){
+    	
+    	dateFormatted = '';
+    	var dateFormat = key.split("-");
+    	var year = dateFormat[0];
+    	var month = dateFormat[1];
+
+    	if (month=='01') { dateFormatted += 'January ';} 
+    	else if (month=='02') { dateFormatted = 'February ';}
+    	else if (month=='03') { dateFormatted = 'March ';}
+    	else if (month=='04') { dateFormatted = 'April ';}
+    	else if (month=='05') { dateFormatted = 'May ';}
+    	else if (month=='06') { dateFormatted = 'June ';}
+    	else if (month=='07') { dateFormatted = 'July ';}
+    	else if (month=='08') { dateFormatted = 'August ';}
+    	else if (month=='09') { dateFormatted = 'September ';}
+    	else if (month=='10') { dateFormatted = 'October ';}
+    	else if (month=='11') { dateFormatted = 'November ';}
+    	else if (month=='12') { dateFormatted = 'December ';}
+    	dateFormatted += year;
+
+    	table_data += '<tr>';
+    	table_data += '<td>'+dateFormatted+'</td>';
+    	table_data += '<td>'+value.bbcone+'</td>';
+    	table_data += '<td>'+value.bbctwo+'</td>';
+    	table_data += '<td>'+value.bbcthree+'</td>';
+    	table_data += '<td>'+value.bbcfour+'</td>';
+    	table_data += '<td>'+value.bbcnews24+'</td>';
+    	table_data += '<td>'+value.cbbc+'</td>';
+    	table_data += '<td>'+value.cbeebies+'</td>';
+    	table_data += '</tr>';
+    });
+    $('#table').append(table_data);
 });
 </script>
 </body>
